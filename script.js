@@ -24,6 +24,7 @@ const remaining0 = document.getElementById('remaining--0');
 const remaining1 = document.getElementById('remaining--1');
 const remaining01 = document.getElementById('remaining--01');
 const remaining11 = document.getElementById('remaining--11');
+
 // mousce
 const mousce1 = document.getElementById('mousce1');
 const mousce2 = document.getElementById('mousce2');
@@ -37,9 +38,6 @@ const mousce9 = document.getElementById('mousce9');
 const mousce10 = document.getElementById('mousce10');
 const mousce11 = document.getElementById('mousce11');
 const mousce12 = document.getElementById('mousce12');
-// const mousce7 = document.getElementById('mousce7');
-// const mousce8 = document.getElementById('mousce8');
-// const mousce9 = document.getElementById('mousce9');
 
 // Cur Dice
 const diceEl0 = document.getElementById('dice0');
@@ -55,10 +53,6 @@ const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
 // Variable
-
-// function
-
-// Starting condition
 let free,
   color0,
   color01,
@@ -80,11 +74,12 @@ let free,
   remaining01v,
   remaining11v,
   dice1,
-  dice11;
-remaining0v = 10;
-remaining01v = 10;
-remaining1v = 10;
-remaining11v = 10;
+  dice11,
+  power1,
+  power0,
+  power01,
+  power11;
+
 let vmousce1, vmousce2, vmousce3, vmousce4, vmousce5, vmousce6;
 let vcmousce1, vcmousce2, vcmousce3, vcmousce4, vcmousce5, vcmousce6;
 let vcmousce7, vcmousce8, vcmousce9, vcmousce10, vcmousce11, vcmousce12;
@@ -95,20 +90,7 @@ const green = [];
 const yellow = [];
 const colorL = [blue, red, yellow, green];
 
-free = 1;
-a = 0;
-let power1 = 0;
-let power0 = 0;
-let power01 = 0;
-let power11 = 0;
-
-//
-//
-//
-//
-//
-//
-//
+//Can be added
 // alert('Welcome to the new Ligretto Online game');
 // alert(
 //   'There are two players. How to play?:\n "a/$" to change card\n "q/p" to use the big card\n "s/à" to use a special card\n "y/é" to add a special card to the opponent'
@@ -118,8 +100,9 @@ let power11 = 0;
 // name0.textContent = n000;
 // name1.textContent = n111;
 
+
+// functions
 const randNumColor = function (varNumPlace, varNumColor, where) {
-  console.log('rand');
   varNumPlace = Math.floor(Math.random() * 6) + 1;
   varNumColor = Math.floor(Math.random() * 4) + 1;
   where.classList.remove(`Filter1`);
@@ -130,10 +113,38 @@ const randNumColor = function (varNumPlace, varNumColor, where) {
   where.classList.remove('hidden');
   where.src = `dice-${varNumPlace}.png`;
 };
-
+const removingF = function (ccc, ddd, diceNum) {
+  diceNum.classList.remove(`Filter1`);
+  diceNum.classList.remove(`Filter2`);
+  diceNum.classList.remove(`Filter3`);
+  diceNum.classList.remove(`Filter4`);
+  diceNum.classList.add(`Filter${ccc}`);
+  diceNum.classList.remove('hidden');
+  diceNum.src = `dice-${ddd}.png`;
+};
+const starterPack = function () {
+  diceEl1.classList.add('hidden');
+  diceEl0.classList.add('hidden');
+  remaining0v = 10;
+  remaining0.textContent = remaining0v;
+  remaining1v = 10;
+  remaining1.textContent = remaining1v;
+  remaining01v = 10;
+  remaining01.textContent = remaining01v;
+  remaining11v = 10;
+  remaining11.textContent = remaining11v;
+  power1 = 0;
+  power0 = 0;
+  power01 = 0;
+  power11 = 0;
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  score01El.textContent = 0;
+  score11El.textContent = 0;
+  a = 0;
+};
 const unlu = function () {
   const unlucky = Math.floor(Math.random() * 4) + 1;
-  console.log(unlucky);
   const audio = document.querySelector(`audio[data-key="68"]`);
   audio.play();
   switch (unlucky) {
@@ -171,7 +182,6 @@ const endGame = function () {
   diceEl11.classList.add('hidden');
   diceEl01.classList.add('hidden');
   for (let i = 1; i < a + 1; i++) {
-    console.log(document.getElementById(`D${i}`));
     containerMovements.removeChild(document.getElementById(`D${i}`));
   }
   red.length = 0;
@@ -181,18 +191,120 @@ const endGame = function () {
   console.log(colorL);
   a = 0;
 };
-randNumColor(vmousce1, vcmousce1, mousce1);
-randNumColor(vmousce2, vcmousce2, mousce2);
-randNumColor(vmousce3, vcmousce3, mousce3);
-randNumColor(vmousce4, vcmousce4, mousce4);
-randNumColor(vmousce5, vcmousce5, mousce5);
-randNumColor(vmousce6, vcmousce6, mousce6);
-randNumColor(vmousce7, vcmousce7, mousce7);
-randNumColor(vmousce8, vcmousce8, mousce8);
-randNumColor(vmousce9, vcmousce9, mousce9);
-randNumColor(vmousce10, vcmousce10, mousce10);
-randNumColor(vmousce11, vcmousce11, mousce11);
-randNumColor(vmousce12, vcmousce12, mousce12);
+const mixEvrth = function () {
+  randNumColor(vmousce1, vcmousce1, mousce1);
+  randNumColor(vmousce2, vcmousce2, mousce2);
+  randNumColor(vmousce3, vcmousce3, mousce3);
+  randNumColor(vmousce4, vcmousce4, mousce4);
+  randNumColor(vmousce5, vcmousce5, mousce5);
+  randNumColor(vmousce6, vcmousce6, mousce6);
+  randNumColor(vmousce7, vcmousce7, mousce7);
+  randNumColor(vmousce8, vcmousce8, mousce8);
+  randNumColor(vmousce9, vcmousce9, mousce9);
+  randNumColor(vmousce10, vcmousce10, mousce10);
+  randNumColor(vmousce11, vcmousce11, mousce11);
+  randNumColor(vmousce12, vcmousce12, mousce12);
+};
+const pushLikeABossFirstPart = function (dice, color) {
+  console.log('pushLikeABossFirstPart');
+  console.log(dice, color);
+
+  switch (color) {
+    case 1:
+      blue.push(dice);
+      break;
+    case 2:
+      red.push(dice);
+      break;
+    case 3:
+      yellow.push(dice);
+      break;
+    case 4:
+      green.push(dice);
+      break;
+  }
+};
+const pushLikeABoss = function (dice, color) {
+  pushLikeABossFirstPart(dice, color);
+  console.log('pushLikeABoss');
+  console.log(dice, color);
+};
+const putTheBigWhenOne = function (dice, color) {
+  a++;
+  const html = `<img src="dice-${dice}.png" alt="Playing dice" class="diceM Filter${color} " id="D${a}"/> `;
+  containerMovements.insertAdjacentHTML('beforeend', html);
+  console.log(dice, color);
+
+  pushLikeABoss(dice, color);
+  return 0;
+};
+const newDiceAfterUseOfSpecial = function (
+  count,
+  vmousce7,
+  vcmousce7,
+  mousce7,
+  vmousce8,
+  vcmousce8,
+  mousce8,
+  vmousce9,
+  vcmousce9,
+  mousce9
+) {
+  switch (count) {
+    case 1:
+      randNumColor(vmousce7, vcmousce7, mousce7);
+      break;
+    case 2:
+      randNumColor(vmousce8, vcmousce8, mousce8);
+      break;
+    case 3:
+      randNumColor(vmousce9, vcmousce9, mousce9);
+      break;
+  }
+};
+const addToTheGameBoard = function (color1, dice1) {
+  const audio = document.querySelector(`audio[data-key="70"]`);
+  audio.play();
+  const listColor = containerMovements.getElementsByClassName(
+    `Filter${color1}`
+  );
+  for (const dice of listColor) {
+    if (dice.getAttribute('src') === `dice-${dice1 - 1}.png`) {
+      document.getElementById(
+        dice.getAttribute('id')
+      ).src = `dice-${dice1}.png`;
+      break;
+    }
+  }
+  const fct = e => e === dice1 - 1;
+  colorL[color1 - 1].splice(colorL[color1 - 1].findIndex(fct), 1);
+  pushLikeABoss(dice1, color1);
+  return 0;
+};
+const special3NumWhenOne = function (
+  remaining1v,
+  remaining1,
+  score1El,
+  numSrc,
+  numcol
+) {
+  const audio = document.querySelector(`audio[data-key="71"]`);
+  audio.play();
+  a++;
+  const html = `<img src="dice-${numSrc}.png" alt="Playing dice" class="diceM Filter${numcol} " id="D${a}"/> `;
+  containerMovements.insertAdjacentHTML('beforeend', html);
+  pushLikeABossFirstPart(numSrc, numcol);
+  remaining1v--;
+  remaining1.textContent = remaining1v;
+  if (remaining1v === 0) {
+    score1El.textContent = 'Winner';
+    endGame();
+  }
+};
+
+//start parameters
+mixEvrth();
+starterPack();
 
 document.addEventListener('keydown', function (e) {
   console.log(e);
@@ -225,337 +337,80 @@ document.addEventListener('keydown', function (e) {
     audio.play();
     dice1 = Math.floor(Math.random() * 6) + 1;
     color1 = Math.floor(Math.random() * 4) + 1;
-    diceEl1.classList.remove(`Filter1`);
-    diceEl1.classList.remove(`Filter2`);
-    diceEl1.classList.remove(`Filter3`);
-    diceEl1.classList.remove(`Filter4`);
-
-    diceEl1.classList.add(`Filter${color1}`);
-    diceEl1.classList.remove('hidden');
-    diceEl1.src = `dice-${dice1}.png`;
+    removingF(color1, dice1, diceEl1);
   } else if (e.key === 'a') {
     const audio = document.querySelector(`audio[data-key="65"]`);
     audio.play();
     dice0 = Math.floor(Math.random() * 6) + 1;
     color0 = Math.floor(Math.random() * 4) + 1;
-    diceEl0.classList.remove(`Filter1`);
-    diceEl0.classList.remove(`Filter2`);
-    diceEl0.classList.remove(`Filter3`);
-    diceEl0.classList.remove(`Filter4`);
-    diceEl0.classList.add(`Filter${color0}`);
-    diceEl0.classList.remove('hidden');
-    diceEl0.src = `dice-${dice0}.png`;
+    removingF(color0, dice0, diceEl0);
   } else if (e.key === 'v') {
     const audio = document.querySelector(`audio[data-key="65"]`);
     audio.play();
     dice01 = Math.floor(Math.random() * 6) + 1;
     color01 = Math.floor(Math.random() * 4) + 1;
-    diceEl01.classList.remove(`Filter1`);
-    diceEl01.classList.remove(`Filter2`);
-    diceEl01.classList.remove(`Filter3`);
-    diceEl01.classList.remove(`Filter4`);
-    diceEl01.classList.add(`Filter${color01}`);
-    diceEl01.classList.remove('hidden');
-    diceEl01.src = `dice-${dice01}.png`;
+    removingF(color01, dice01, diceEl01);
   } else if (e.key === '$') {
     const audio = document.querySelector(`audio[data-key="65"]`);
     audio.play();
     dice11 = Math.floor(Math.random() * 6) + 1;
     color11 = Math.floor(Math.random() * 4) + 1;
-    diceEl11.classList.remove(`Filter1`);
-    diceEl11.classList.remove(`Filter2`);
-    diceEl11.classList.remove(`Filter3`);
-    diceEl11.classList.remove(`Filter4`);
-    diceEl11.classList.add(`Filter${color11}`);
-    diceEl11.classList.remove('hidden');
-    diceEl11.src = `dice-${dice11}.png`;
+    removingF(color11, dice11, diceEl11);
   }
 
   if (dice1 === 1) {
     if (e.key === 'j') {
       const audio = document.querySelector(`audio[data-key="70"]`);
       audio.play();
-      console.log('zouzou');
-      a++;
-      console.log('drdrdrdrdr');
-      const html = `<img src="dice-${dice1}.png" alt="Playing dice" class="diceM Filter${color1} " id="D${a}"/> `;
-      containerMovements.insertAdjacentHTML('beforeend', html);
-      console.log('drdrdrdrdr');
-
-      switch (color1) {
-        case 1:
-          blue.push(dice1);
-          break;
-        case 2:
-          red.push(dice1);
-          break;
-        case 3:
-          yellow.push(dice1);
-          break;
-        case 4:
-          green.push(dice1);
-          break;
-      }
-      dice1 = 0;
+      dice1 = putTheBigWhenOne(dice1, color1);
     }
   }
   if (dice11 === 1) {
     if (e.key === 'p') {
       const audio = document.querySelector(`audio[data-key="70"]`);
       audio.play();
-      console.log('zouzou');
-      a++;
-      console.log('drdrdrdrdr');
-      const html = `<img src="dice-${dice11}.png" alt="Playing dice" class="diceM Filter${color11} " id="D${a}"/> `;
-      containerMovements.insertAdjacentHTML('beforeend', html);
-      console.log('drdrdrdrdr');
-
-      switch (color11) {
-        case 1:
-          blue.push(dice11);
-          break;
-        case 2:
-          red.push(dice11);
-          break;
-        case 3:
-          yellow.push(dice11);
-          break;
-        case 4:
-          green.push(dice11);
-          break;
-      }
-      dice11 = 0;
+      dice11 = putTheBigWhenOne(dice11, color11);
     }
   }
   if (dice0 === 1) {
     if (e.key === 'q') {
       const audio = document.querySelector(`audio[data-key="70"]`);
       audio.play();
-      a++;
-      const html = `<img src="dice-${dice0}.png" alt="Playing dice" class="diceM Filter${color0} " id="D${a}"/> `;
-      containerMovements.insertAdjacentHTML('beforeend', html);
-
-      switch (color0) {
-        case 1:
-          blue.push(dice0);
-          break;
-        case 2:
-          red.push(dice0);
-          break;
-        case 3:
-          yellow.push(dice0);
-          break;
-        case 4:
-          green.push(dice0);
-          break;
-      }
-      dice0 = 0;
+      dice0 = putTheBigWhenOne(dice0, color0);
     }
   }
   if (dice01 === 1) {
     if (e.key === 'f') {
       const audio = document.querySelector(`audio[data-key="70"]`);
       audio.play();
-      a++;
-      const html = `<img src="dice-${dice01}.png" alt="Playing dice" class="diceM Filter${color01} " id="D${a}"/> `;
-      containerMovements.insertAdjacentHTML('beforeend', html);
-
-      switch (color01) {
-        case 1:
-          blue.push(dice01);
-          break;
-        case 2:
-          red.push(dice01);
-          break;
-        case 3:
-          yellow.push(dice01);
-          break;
-        case 4:
-          green.push(dice01);
-          break;
-      }
-      dice01 = 0;
+      dice01 = putTheBigWhenOne(dice01, color01);
     }
   }
   if (color1 !== undefined) {
     if (colorL[color1 - 1].includes(dice1 - 1)) {
       if (e.key === 'j') {
-        const audio = document.querySelector(`audio[data-key="70"]`);
-        audio.play();
-        console.log('zouzouiiiiiii');
-        const listColor = containerMovements.getElementsByClassName(
-          `Filter${color1}`
-        );
-        console.log(listColor, 'listCCCC');
-        for (const dice of listColor) {
-          console.log(dice, 'dice');
-          console.log(dice1, 'dice1');
-          console.log(document.getElementById(dice.getAttribute('id')));
-          console.log(dice.src === `dice-${dice1 - 1}.png`, 'dice');
-          console.log(
-            dice.src,
-            `dice-${dice1 - 1}.png`,
-            dice.getAttribute('src')
-          );
-          if (dice.getAttribute('src') === `dice-${dice1 - 1}.png`) {
-            document.getElementById(
-              dice.getAttribute('id')
-            ).src = `dice-${dice1}.png`;
-            break;
-          }
-        }
-        const fct = e => e === dice1 - 1;
-        colorL[color1 - 1].splice(colorL[color1 - 1].findIndex(fct), 1);
-
-        switch (color1) {
-          case 1:
-            blue.push(dice1);
-            break;
-          case 2:
-            red.push(dice1);
-            break;
-          case 3:
-            yellow.push(dice1);
-            break;
-          case 4:
-            green.push(dice1);
-            break;
-        }
-        dice1 = 0;
-        // remaining1v--;
-        // remaining1.textContent = remaining1v;
+        dice1 = addToTheGameBoard(color1, dice1);
       }
     }
   }
   if (color11 !== undefined) {
     if (colorL[color11 - 1].includes(dice11 - 1)) {
       if (e.key === 'p') {
-        const audio = document.querySelector(`audio[data-key="70"]`);
-        audio.play();
-        console.log('zouzouiiiiiii');
-        const listColor = containerMovements.getElementsByClassName(
-          `Filter${color11}`
-        );
-        console.log(listColor, 'listCCCC');
-        for (const dice of listColor) {
-          console.log(dice, 'dice');
-          console.log(dice1, 'dice1');
-          console.log(document.getElementById(dice.getAttribute('id')));
-          console.log(dice.src === `dice-${dice1 - 1}.png`, 'dice');
-          console.log(
-            dice.src,
-            `dice-${dice11 - 1}.png`,
-            dice.getAttribute('src')
-          );
-          if (dice.getAttribute('src') === `dice-${dice11 - 1}.png`) {
-            document.getElementById(
-              dice.getAttribute('id')
-            ).src = `dice-${dice11}.png`;
-            break;
-          }
-        }
-        const fct = e => e === dice11 - 1;
-        colorL[color11 - 1].splice(colorL[color11 - 1].findIndex(fct), 1);
-
-        switch (color11) {
-          case 1:
-            blue.push(dice11);
-            break;
-          case 2:
-            red.push(dice11);
-            break;
-          case 3:
-            yellow.push(dice11);
-            break;
-          case 4:
-            green.push(dice11);
-            break;
-        }
-        dice11 = 0;
-        // remaining1v--;
-        // remaining1.textContent = remaining1v;
+        dice11 = addToTheGameBoard(color11, dice11);
       }
     }
   }
   if (color0 !== undefined) {
     if (colorL[color0 - 1].includes(dice0 - 1)) {
       if (e.key === 'q') {
-        const audio = document.querySelector(`audio[data-key="70"]`);
-        audio.play();
-        console.log('zouzou');
-        const listColor = containerMovements.getElementsByClassName(
-          `Filter${color0}`
-        );
-        console.log(listColor);
-        for (const dice of listColor) {
-          console.log(dice);
-          if (dice.getAttribute('src') === `dice-${dice0 - 1}.png`) {
-            document.getElementById(
-              dice.getAttribute('id')
-            ).src = `dice-${dice0}.png`;
-            break;
-          }
-        }
-        const fct = e => e === dice0 - 1;
-        colorL[color0 - 1].splice(colorL[color0 - 1].findIndex(fct), 1);
-        switch (color0) {
-          case 1:
-            blue.push(dice0);
-            break;
-          case 2:
-            red.push(dice0);
-            break;
-          case 3:
-            yellow.push(dice0);
-            break;
-          case 4:
-            green.push(dice0);
-            break;
-        }
-        dice0 = 0;
-        // remaining0v--;
-        // remaining0.textContent = remaining0v;
+        dice0 = addToTheGameBoard(color0, dice0);
       }
     }
   }
   if (color01 !== undefined) {
     if (colorL[color01 - 1].includes(dice01 - 1)) {
       if (e.key === 'f') {
-        const audio = document.querySelector(`audio[data-key="70"]`);
-        audio.play();
-        console.log('zouzou');
-        const listColor = containerMovements.getElementsByClassName(
-          `Filter${color01}`
-        );
-        console.log(listColor);
-        for (const dice of listColor) {
-          console.log(dice);
-          if (dice.getAttribute('src') === `dice-${dice01 - 1}.png`) {
-            document.getElementById(
-              dice.getAttribute('id')
-            ).src = `dice-${dice01}.png`;
-            break;
-          }
-        }
-        const fct = e => e === dice01 - 1;
-        colorL[color01 - 1].splice(colorL[color01 - 1].findIndex(fct), 1);
-        switch (color01) {
-          case 1:
-            blue.push(dice01);
-            break;
-          case 2:
-            red.push(dice01);
-            break;
-          case 3:
-            yellow.push(dice01);
-            break;
-          case 4:
-            green.push(dice01);
-            break;
-        }
-        dice01 = 0;
-        // remaining0v--;
-        // remaining0.textContent = remaining0v;
+        dice01 = addToTheGameBoard(color01, dice01);
       }
     }
   }
@@ -567,58 +422,29 @@ document.addEventListener('keydown', function (e) {
       const numSrc = Number(goodSrc.split('-')[1].split('.')[0]);
       const colorMous = o.classList[1];
       const numcol = Number(colorMous[colorMous.length - 1]);
-      console.log(numSrc, goodSrc);
       if (numSrc === 1) {
-        const audio = document.querySelector(`audio[data-key="71"]`);
-        audio.play();
-        a++;
-        const html = `<img src="dice-${numSrc}.png" alt="Playing dice" class="diceM Filter${numcol} " id="D${a}"/> `;
-        containerMovements.insertAdjacentHTML('beforeend', html);
-
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
-        remaining1v--;
-        remaining1.textContent = remaining1v;
-        if (remaining1v === 0) {
-          score1El.textContent = 'Winner';
-          endGame();
-        }
-        switch (counter111) {
-          case 1:
-            randNumColor(vmousce4, vcmousce4, mousce4);
-            break;
-          case 2:
-            randNumColor(vmousce5, vcmousce5, mousce5);
-            break;
-          case 3:
-            randNumColor(vmousce6, vcmousce6, mousce6);
-            break;
-        }
+        special3NumWhenOne(remaining1v, remaining1, score1El, numSrc, numcol);
+        newDiceAfterUseOfSpecial(
+          counter111,
+          vmousce4,
+          vcmousce4,
+          mousce4,
+          vmousce5,
+          vcmousce5,
+          mousce5,
+          vmousce6,
+          vcmousce6,
+          mousce6
+        );
         break;
-      }
-      if (colorL[numcol - 1].includes(numSrc - 1)) {
+      } else if (colorL[numcol - 1].includes(numSrc - 1)) {
         const audio = document.querySelector(`audio[data-key="71"]`);
         audio.play();
-        console.log('zouzou');
         const listColor = containerMovements.getElementsByClassName(
           `Filter${numcol}`
         );
-        console.log(listColor);
         for (const dice of listColor) {
-          console.log(dice);
-          if ((dice.src = `dice-${numSrc - 1}.png`)) {
+          if (dice.src.split('/').pop() === `dice-${numSrc - 1}.png`) {
             document.getElementById(
               dice.getAttribute('id')
             ).src = `dice-${numSrc}.png`;
@@ -627,41 +453,26 @@ document.addEventListener('keydown', function (e) {
         }
         const fct = e => e === numSrc - 1;
         colorL[numcol - 1].splice(colorL[numcol - 1].findIndex(fct), 1);
-
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
+        pushLikeABossFirstPart(numSrc, numcol);
         remaining1v--;
-        console.log(remaining1.textContent);
         remaining1.textContent = remaining1v;
-        console.log(remaining1.textContent);
-        console.log(remaining1v);
         if (remaining1v === 0) {
           score1El.textContent = 'Winner';
           endGame();
         }
-        switch (counter111) {
-          case 1:
-            randNumColor(vmousce4, vcmousce4, mousce4);
-            break;
-          case 2:
-            randNumColor(vmousce5, vcmousce5, mousce5);
-            break;
-          case 3:
-            randNumColor(vmousce6, vcmousce6, mousce6);
-            break;
-        }
+        newDiceAfterUseOfSpecial(
+          counter111,
+          vmousce4,
+          vcmousce4,
+          mousce4,
+          vmousce5,
+          vcmousce5,
+          mousce5,
+          vmousce6,
+          vcmousce6,
+          mousce6
+        );
+        break;
       }
     }
   }
@@ -673,58 +484,37 @@ document.addEventListener('keydown', function (e) {
       const numSrc = Number(goodSrc.split('-')[1].split('.')[0]);
       const colorMous = o.classList[1];
       const numcol = Number(colorMous[colorMous.length - 1]);
-      console.log(numSrc, goodSrc);
       if (numSrc === 1) {
-        const audio = document.querySelector(`audio[data-key="71"]`);
-        audio.play();
-        a++;
-        const html = `<img src="dice-${numSrc}.png" alt="Playing dice" class="diceM Filter${numcol} " id="D${a}"/> `;
-        containerMovements.insertAdjacentHTML('beforeend', html);
+        special3NumWhenOne(
+          remaining11v,
+          remaining11,
+          score11El,
+          numSrc,
+          numcol
+        );
+        newDiceAfterUseOfSpecial(
+          counter1111,
+          vmousce10,
+          vcmousce10,
+          mousce10,
+          vmousce11,
+          vcmousce11,
+          mousce11,
+          vmousce12,
+          vcmousce12,
+          mousce12
+        );
 
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
-        remaining11v--;
-        remaining11.textContent = remaining11v;
-        if (remaining11v === 0) {
-          score11El.textContent = 'Winner';
-          endGame();
-        }
-        switch (counter1111) {
-          case 1:
-            randNumColor(vmousce10, vcmousce10, mousce10);
-            break;
-          case 2:
-            randNumColor(vmousce11, vcmousce11, mousce11);
-            break;
-          case 3:
-            randNumColor(vmousce12, vcmousce12, mousce12);
-            break;
-        }
         break;
-      }
-      if (colorL[numcol - 1].includes(numSrc - 1)) {
+      } else if (colorL[numcol - 1].includes(numSrc - 1)) {
         const audio = document.querySelector(`audio[data-key="71"]`);
         audio.play();
-        console.log('zouzou');
+
         const listColor = containerMovements.getElementsByClassName(
           `Filter${numcol}`
         );
-        console.log(listColor);
         for (const dice of listColor) {
-          console.log(dice);
-          if ((dice.src = `dice-${numSrc - 1}.png`)) {
+          if (dice.src.split('/').pop() === `dice-${numSrc - 1}.png`) {
             document.getElementById(
               dice.getAttribute('id')
             ).src = `dice-${numSrc}.png`;
@@ -734,20 +524,7 @@ document.addEventListener('keydown', function (e) {
         const fct = e => e === numSrc - 1;
         colorL[numcol - 1].splice(colorL[numcol - 1].findIndex(fct), 1);
 
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
+        pushLikeABossFirstPart(numSrc, numcol);
         remaining11v--;
         remaining11.textContent = remaining11v;
 
@@ -755,17 +532,19 @@ document.addEventListener('keydown', function (e) {
           score11El.textContent = 'Winner';
           endGame();
         }
-        switch (counter1111) {
-          case 1:
-            randNumColor(vmousce10, vcmousce10, mousce10);
-            break;
-          case 2:
-            randNumColor(vmousce11, vcmousce11, mousce11);
-            break;
-          case 3:
-            randNumColor(vmousce12, vcmousce12, mousce12);
-            break;
-        }
+        newDiceAfterUseOfSpecial(
+          counter1111,
+          vmousce10,
+          vcmousce10,
+          mousce10,
+          vmousce11,
+          vcmousce11,
+          mousce11,
+          vmousce12,
+          vcmousce12,
+          mousce12
+        );
+        break;
       }
     }
   }
@@ -777,58 +556,29 @@ document.addEventListener('keydown', function (e) {
       const numSrc = Number(goodSrc.split('-')[1].split('.')[0]);
       const colorMous = o.classList[1];
       const numcol = Number(colorMous[colorMous.length - 1]);
-      console.log(numSrc, goodSrc);
       if (numSrc === 1) {
-        const audio = document.querySelector(`audio[data-key="71"]`);
-        audio.play();
-        a++;
-        const html = `<img src="dice-${numSrc}.png" alt="Playing dice" class="diceM Filter${numcol} " id="D${a}"/> `;
-        containerMovements.insertAdjacentHTML('beforeend', html);
-
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
-        remaining0v--;
-        remaining0.textContent = remaining0v;
-        if (remaining0v === 0) {
-          score0El.textContent = 'Winner';
-          endGame();
-        }
-        switch (counter000) {
-          case 1:
-            randNumColor(vmousce1, vcmousce1, mousce1);
-            break;
-          case 2:
-            randNumColor(vmousce2, vcmousce2, mousce2);
-            break;
-          case 3:
-            randNumColor(vmousce3, vcmousce3, mousce3);
-            break;
-        }
+        special3NumWhenOne(remaining0v, remaining0, score0El, numSrc, numcol);
+        newDiceAfterUseOfSpecial(
+          counter000,
+          vmousce1,
+          vcmousce1,
+          mousce1,
+          vmousce2,
+          vcmousce2,
+          mousce2,
+          vmousce3,
+          vcmousce3,
+          mousce3
+        );
         break;
-      }
-      if (colorL[numcol - 1].includes(numSrc - 1)) {
+      } else if (colorL[numcol - 1].includes(numSrc - 1)) {
         const audio = document.querySelector(`audio[data-key="71"]`);
         audio.play();
-        console.log('zouzou');
         const listColor = containerMovements.getElementsByClassName(
           `Filter${numcol}`
         );
-        console.log(listColor);
         for (const dice of listColor) {
-          console.log(dice);
-          if ((dice.src = `dice-${numSrc - 1}.png`)) {
+          if (dice.src.split('/').pop() === `dice-${numSrc - 1}.png`) {
             document.getElementById(
               dice.getAttribute('id')
             ).src = `dice-${numSrc}.png`;
@@ -838,20 +588,7 @@ document.addEventListener('keydown', function (e) {
         const fct = e => e === numSrc - 1;
         colorL[numcol - 1].splice(colorL[numcol - 1].findIndex(fct), 1);
 
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
+        pushLikeABossFirstPart(numSrc, numcol);
         remaining0v--;
         remaining0.textContent = remaining0v;
         if (remaining0v === 0) {
@@ -859,17 +596,19 @@ document.addEventListener('keydown', function (e) {
           endGame();
         }
 
-        switch (counter000) {
-          case 1:
-            randNumColor(vmousce1, vcmousce1, mousce1);
-            break;
-          case 2:
-            randNumColor(vmousce2, vcmousce2, mousce2);
-            break;
-          case 3:
-            randNumColor(vmousce3, vcmousce3, mousce3);
-            break;
-        }
+        newDiceAfterUseOfSpecial(
+          counter000,
+          vmousce1,
+          vcmousce1,
+          mousce1,
+          vmousce2,
+          vcmousce2,
+          mousce2,
+          vmousce3,
+          vcmousce3,
+          mousce3
+        );
+        break;
       }
     }
   }
@@ -881,58 +620,36 @@ document.addEventListener('keydown', function (e) {
       const numSrc = Number(goodSrc.split('-')[1].split('.')[0]);
       const colorMous = o.classList[1];
       const numcol = Number(colorMous[colorMous.length - 1]);
-      console.log(numSrc, goodSrc);
       if (numSrc === 1) {
-        const audio = document.querySelector(`audio[data-key="71"]`);
-        audio.play();
-        a++;
-        const html = `<img src="dice-${numSrc}.png" alt="Playing dice" class="diceM Filter${numcol} " id="D${a}"/> `;
-        containerMovements.insertAdjacentHTML('beforeend', html);
+        special3NumWhenOne(
+          remaining01v,
+          remaining01,
+          score01El,
+          numSrc,
+          numcol
+        );
+        newDiceAfterUseOfSpecial(
+          counter0001,
+          vmousce7,
+          vcmousce7,
+          mousce7,
+          vmousce8,
+          vcmousce8,
+          mousce8,
+          vmousce9,
+          vcmousce9,
+          mousce9
+        );
 
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
-        remaining01v--;
-        remaining01.textContent = remaining01v;
-        if (remaining01v === 0) {
-          score01El.textContent = 'Winner';
-          endGame();
-        }
-        switch (counter0001) {
-          case 1:
-            randNumColor(vmousce7, vcmousce7, mousce7);
-            break;
-          case 2:
-            randNumColor(vmousce8, vcmousce8, mousce8);
-            break;
-          case 3:
-            randNumColor(vmousce9, vcmousce9, mousce9);
-            break;
-        }
         break;
-      }
-      if (colorL[numcol - 1].includes(numSrc - 1)) {
+      } else if (colorL[numcol - 1].includes(numSrc - 1)) {
         const audio = document.querySelector(`audio[data-key="71"]`);
         audio.play();
-        console.log('zouzou');
         const listColor = containerMovements.getElementsByClassName(
           `Filter${numcol}`
         );
-        console.log(listColor);
         for (const dice of listColor) {
-          console.log(dice);
-          if ((dice.src = `dice-${numSrc - 1}.png`)) {
+          if (dice.src.split('/').pop() === `dice-${numSrc - 1}.png`) {
             document.getElementById(
               dice.getAttribute('id')
             ).src = `dice-${numSrc}.png`;
@@ -942,20 +659,7 @@ document.addEventListener('keydown', function (e) {
         const fct = e => e === numSrc - 1;
         colorL[numcol - 1].splice(colorL[numcol - 1].findIndex(fct), 1);
 
-        switch (numcol) {
-          case 1:
-            blue.push(numSrc);
-            break;
-          case 2:
-            red.push(numSrc);
-            break;
-          case 3:
-            yellow.push(numSrc);
-            break;
-          case 4:
-            green.push(numSrc);
-            break;
-        }
+        pushLikeABossFirstPart(numSrc, numcol);
         remaining01v--;
         remaining01.textContent = remaining01v;
         if (remaining01v === 0) {
@@ -963,27 +667,24 @@ document.addEventListener('keydown', function (e) {
           endGame();
         }
 
-        switch (counter0001) {
-          case 1:
-            randNumColor(vmousce7, vcmousce7, mousce7);
-            break;
-          case 2:
-            randNumColor(vmousce8, vcmousce8, mousce8);
-            break;
-          case 3:
-            randNumColor(vmousce9, vcmousce9, mousce9);
-            break;
-        }
+        newDiceAfterUseOfSpecial(
+          counter0001,
+          vmousce7,
+          vcmousce7,
+          mousce7,
+          vmousce8,
+          vcmousce8,
+          mousce8,
+          vmousce9,
+          vcmousce9,
+          mousce9
+        );
+        break;
       }
     }
   }
-  console.log(colorL);
 });
 
-//
-//
-//
-//
 btnRoll.addEventListener('click', function () {
   const audio = document.querySelector(`audio[data-key="74"]`);
   audio.play();
@@ -1000,26 +701,9 @@ btnRoll.addEventListener('click', function () {
 btnNew.addEventListener('click', function () {
   diceEl1.classList.add('hidden');
   diceEl0.classList.add('hidden');
-  remaining0v = 10;
-  remaining0.textContent = remaining0v;
-  remaining1v = 10;
-  remaining1.textContent = remaining1v;
-  remaining01v = 10;
-  remaining01.textContent = remaining01v;
-  remaining11v = 10;
-  remaining11.textContent = remaining11v;
-  randNumColor(vmousce1, vcmousce1, mousce1);
-  randNumColor(vmousce2, vcmousce2, mousce2);
-  randNumColor(vmousce3, vcmousce3, mousce3);
-  randNumColor(vmousce4, vcmousce4, mousce4);
-  randNumColor(vmousce5, vcmousce5, mousce5);
-  randNumColor(vmousce6, vcmousce6, mousce6);
-  randNumColor(vmousce7, vcmousce7, mousce7);
-  randNumColor(vmousce8, vcmousce8, mousce8);
-  randNumColor(vmousce9, vcmousce9, mousce9);
-  randNumColor(vmousce10, vcmousce10, mousce10);
-  randNumColor(vmousce11, vcmousce11, mousce11);
-  randNumColor(vmousce12, vcmousce12, mousce12);
+  
+  mixEvrth();
+  
   remaining0.classList.remove('current-labels');
   remaining0.classList.add('current-label');
 
@@ -1031,88 +715,13 @@ btnNew.addEventListener('click', function () {
 
   remaining01.classList.remove('current-labels');
   remaining01.classList.add('current-label');
-  power1 = 0;
-  power0 = 0;
-  power01 = 0;
-  power11 = 0;
-  score0El.textContent = '0';
-  score1El.textContent = '0';
-  score01El.textContent = '0';
-  score11El.textContent = '0';
+
   endGame();
-  score0El.textContent = '0';
-  score1El.textContent = '0';
-  score01El.textContent = '0';
-  score11El.textContent = '0';
+  starterPack();
 });
 
-//
 btnHold.addEventListener('click', function () {
   const audio = document.querySelector(`audio[data-key="73"]`);
   audio.play();
-  randNumColor(vmousce1, vcmousce1, mousce1);
-  randNumColor(vmousce2, vcmousce2, mousce2);
-  randNumColor(vmousce3, vcmousce3, mousce3);
-  randNumColor(vmousce4, vcmousce4, mousce4);
-  randNumColor(vmousce5, vcmousce5, mousce5);
-  randNumColor(vmousce6, vcmousce6, mousce6);
-  randNumColor(vmousce7, vcmousce7, mousce7);
-  randNumColor(vmousce8, vcmousce8, mousce8);
-  randNumColor(vmousce9, vcmousce9, mousce9);
-  randNumColor(vmousce10, vcmousce10, mousce10);
-  randNumColor(vmousce11, vcmousce11, mousce11);
-  randNumColor(vmousce12, vcmousce12, mousce12);
+  mixEvrth();
 });
-
-//
-// settingthegame();
-// btnRoll.addEventListener('click', function () {
-//   if (playinggame) {
-//     // Generate a random dice roll
-//     const dice = Math.floor(Math.random() * 6) + 1;
-//     // Display dice
-//     diceEl.classList.remove('hidden');
-//     diceEl.src = `dice-${dice}.png`;
-//     // Check if not one,  if true next player
-//     if (dice !== 1) {
-//       currentdice += dice;
-//       document.getElementById(`current--${activePlayer}`).textContent =
-//         currentdice;
-//     } else {
-//       switchp();
-//     }
-//     // else add to current
-//   }
-// });
-
-// btnHold.addEventListener('click', function () {
-//   if (playinggame) {
-//     //   document.getElementById(`score--${activePlayer}`).textContent += currentdice;
-//     scores[activePlayer] += currentdice;
-//     document.getElementById(`score--${activePlayer}`).textContent =
-//       scores[activePlayer];
-//     if (scores[activePlayer] > 20) {
-//       document.getElementById(`score--${activePlayer}`).textContent = 'wins!';
-//       document
-//         .querySelector(`.player--${activePlayer}`)
-//         .classList.add('player--winner');
-//       document
-//         .querySelector(`.player--${activePlayer}`)
-//         .classList.remove('player--active');
-//       playinggame = false;
-//     } else {
-//       switchp();
-//     }
-//   }
-// });
-// btnNew.addEventListener('click', settingthegame);
-//   Number(document.getElementById(`score--${activePlayer}`).textContent)+=currentdice
-
-// document.querySelector('.btn btn--roll').addEventListener('click', function () {
-//   var dice = Math.floor(Math.random() * 6) + 1;
-//   switchp (
-//     dice
-//     // case 1: document.querySelector(".dice").dice-1.png
-//   ) {
-//   }
-// });
