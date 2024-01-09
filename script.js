@@ -188,7 +188,6 @@ const endGame = function () {
   blue.length = 0;
   yellow.length = 0;
   green.length = 0;
-  console.log(colorL);
   a = 0;
 };
 const mixEvrth = function () {
@@ -206,9 +205,6 @@ const mixEvrth = function () {
   randNumColor(vmousce12, vcmousce12, mousce12);
 };
 const pushLikeABossFirstPart = function (dice, color) {
-  console.log('pushLikeABossFirstPart');
-  console.log(dice, color);
-
   switch (color) {
     case 1:
       blue.push(dice);
@@ -226,15 +222,11 @@ const pushLikeABossFirstPart = function (dice, color) {
 };
 const pushLikeABoss = function (dice, color) {
   pushLikeABossFirstPart(dice, color);
-  console.log('pushLikeABoss');
-  console.log(dice, color);
 };
 const putTheBigWhenOne = function (dice, color) {
   a++;
   const html = `<img src="dice-${dice}.png" alt="Playing dice" class="diceM Filter${color} " id="D${a}"/> `;
   containerMovements.insertAdjacentHTML('beforeend', html);
-  console.log(dice, color);
-
   pushLikeABoss(dice, color);
   return 0;
 };
@@ -307,7 +299,6 @@ mixEvrth();
 starterPack();
 
 document.addEventListener('keydown', function (e) {
-  console.log(e);
   if (e.key === 'y') {
     if (power0 === 0) {
       unlu();
